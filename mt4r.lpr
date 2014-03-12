@@ -75,12 +75,12 @@ end;
  // start a new R session and return the handle. The "handle" is actually
  // a pointer cast to a LongInt (32 bit) and in mql4 it can be treated like
  // a handle. The other functions will simply cast it back into TRConsole.
-function RInit_(ACommandLine: PChar; ADebugLevel: LongInt): LongInt; stdcall;
+function RInit_(ACommandLine: PWideChar; ADebugLevel: LongInt): LongInt; stdcall;
 var
   R: TRConsole;
 begin
   getversion;
-  R      := TRConsole.Create(ACommandLine, ADebugLevel);
+  R      := TRConsole.Create(AnsiString(ACommandLine), ADebugLevel);
   Result := Longint(R);
   Log('RInit: RHandle = %x (%d)', [Result, Result]);
 end;
@@ -103,19 +103,19 @@ begin
 end;
 
 // last executed code (use this when logging R crash)
-function RLastCode(AHandle: LongInt): PChar; stdcall;
+function RLastCode(AHandle: LongInt): PWideChar; stdcall;
 begin
   if isValid(AHandle) then
-    Result := PChar(TRConsole(AHandle).LastCode)
+    Result := PWideChar(UnicodeString(TRConsole(AHandle).LastCode))
   else
     Result := '';
 end;
 
 // last known raw output of the session (use this when logging R crash)
-function RLastOutput(AHandle: LongInt): PChar; stdcall;
+function RLastOutput(AHandle: LongInt): PWideChar; stdcall;
 begin
   if isValid(AHandle) then
-    Result := PChar(TRConsole(AHandle).LastOutput)
+    Result := PWideChar(UnicodeString(TRConsole(AHandle).LastOutput))
   else
     Result := '';
 end;
@@ -131,109 +131,109 @@ begin
 end;
 
 // execute code and wait
-procedure RExecute(AHandle: LongInt; ACode: PChar); stdcall;
+procedure RExecute(AHandle: LongInt; ACode: PWideChar); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).ExecuteCode(ACode);
+    TRConsole(AHandle).ExecuteCode(AnsiString(ACode));
 end;
 
  // execute code and do not wait. You should use IsBusy to
  // check whether it is finished. Subsequent calls will
  // inevitably block and wait until R is free again.
-procedure RExecuteAsync(AHandle: LongInt; ACode: PChar); stdcall;
+procedure RExecuteAsync(AHandle: LongInt; ACode: PWideChar); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).ExecuteCodeAsync(ACode);
+    TRConsole(AHandle).ExecuteCodeAsync(AnsiString(ACode));
 end;
 
 // assign bool to variable given by name
-procedure RAssignBool(AHandle: LongInt; AVariable: PChar; AValue: Longbool); stdcall;
+procedure RAssignBool(AHandle: LongInt; AVariable: PWideChar; AValue: Longbool); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignBoolean(AVariable, AValue);
+    TRConsole(AHandle).AssignBoolean(AnsiString(AVariable), AValue);
 end;
 
 // assign integer to variable given by name
-procedure RAssignInteger(AHandle: LongInt; AVariable: PChar; AValue: LongInt); stdcall;
+procedure RAssignInteger(AHandle: LongInt; AVariable: PWideChar; AValue: LongInt); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignInteger(AVariable, AValue);
+    TRConsole(AHandle).AssignInteger(AnsiString(AVariable), AValue);
 end;
 
 // assign double to variable given by name
-procedure RAssignDouble(AHandle: LongInt; AVariable: PChar; AValue: Double); stdcall;
+procedure RAssignDouble(AHandle: LongInt; AVariable: PWideChar; AValue: Double); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignDouble(AVariable, AValue);
+    TRConsole(AHandle).AssignDouble(AnsiString(AVariable), AValue);
 end;
 
 // assign string to variable given by name
-procedure RAssignString(AHandle: LongInt; AVariable: PChar; AValue: PChar); stdcall;
+procedure RAssignString(AHandle: LongInt; AVariable: PWideChar; AValue: PChar); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignString(AVariable, AValue);
+    TRConsole(AHandle).AssignString(AnsiString(AVariable), AValue);
 end;
 
 // assign vector to variable given by name
-procedure RAssignVector(AHandle: LongInt; AVariable: PChar; AVector: PVector; ASize: LongInt); stdcall;
+procedure RAssignVector(AHandle: LongInt; AVariable: PWideChar; AVector: PVector; ASize: LongInt); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignVector(AVariable, AVector, ASize);
+    TRConsole(AHandle).AssignVector(AnsiString(AVariable), AVector, ASize);
 end;
 
 // assign vector of strings to variable given by name
-procedure RAssignStringVector(AHandle: LongInt; AVariable: PChar; AVector: PStrVector; ASize: LongInt); stdcall;
+procedure RAssignStringVector(AHandle: LongInt; AVariable: PWideChar; AVector: PStrVector; ASize: LongInt); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignStringVector(AVariable, AVector, ASize);
+    TRConsole(AHandle).AssignStringVector(AnsiString(AVariable), AVector, ASize);
 end;
 
 // assign a matrix to the variable give by name
-procedure RAssignMatrix(AHandle: LongInt; AVariable: PChar; AMatrix: PVector; ARows: LongInt; ACols: LongInt); stdcall;
+procedure RAssignMatrix(AHandle: LongInt; AVariable: PWideChar; AMatrix: PVector; ARows: LongInt; ACols: LongInt); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AssignMatrix(AVariable, AMatrix, ARows, ACols);
+    TRConsole(AHandle).AssignMatrix(AnsiString(AVariable), AMatrix, ARows, ACols);
 end;
 
 // variable <- rbind(variable, vector)
-procedure RAppendMatrixRow(AHandle: LongInt; AVariable: PChar; AVector: PVector; ASize: LongInt); stdcall;
+procedure RAppendMatrixRow(AHandle: LongInt; AVariable: PWideChar; AVector: PVector; ASize: LongInt); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).AppendMatrixRow(AVariable, AVector, ASize);
+    TRConsole(AHandle).AppendMatrixRow(AnsiString(AVariable), AVector, ASize);
 end;
 
 // evaluate expression and return integer
-function RExists(AHandle: LongInt; AVariable: PChar): Longbool; stdcall;
+function RExists(AHandle: LongInt; AVariable: PWideChar): Longbool; stdcall;
 begin
   if isValid(AHandle) then
-    Result := TRConsole(AHandle).Exists(AVariable)
+    Result := TRConsole(AHandle).Exists(AnsiString(AVariable))
   else
     Result := False;
 end;
 
 // evaluate expression and return boolean
-function RGetBool(AHandle: LongInt; AExpression: PChar): Longbool; stdcall;
+function RGetBool(AHandle: LongInt; AExpression: PWideChar): Longbool; stdcall;
 begin
   if isValid(AHandle) then
-    Result := TRConsole(AHandle).GetBoolean(AExpression)
+    Result := TRConsole(AHandle).GetBoolean(AnsiString(AExpression))
   else
     Result := False;
 end;
 
 // evaluate expression and return integer
-function RGetInteger(AHandle: LongInt; AExpression: PChar): LongInt; stdcall;
+function RGetInteger(AHandle: LongInt; AExpression: PWideChar): LongInt; stdcall;
 begin
   if isValid(AHandle) then
-    Result := TRConsole(AHandle).GetInteger(AExpression)
+    Result := TRConsole(AHandle).GetInteger(AnsiString(AExpression))
   else
     Result := 0;
 end;
 
 // evaluate expression and return double
-function RGetDouble(AHandle: LongInt; AExpression: PChar): Double; stdcall;
+function RGetDouble(AHandle: LongInt; AExpression: PWideChar): Double; stdcall;
 begin
   if isValid(AHandle) then
-    Result := TRConsole(AHandle).GetDouble(AExpression)
+    Result := TRConsole(AHandle).GetDouble(AnsiString(AExpression))
   else
     Result := 0;
 end;
@@ -243,19 +243,19 @@ end;
  // if the size of the array does not match the size of the actuall vector
  // then a warning will be emitted on debuglevel 1. Return value will
  // always be equal or smaller than the supplied ASize.
-function RGetVector(AHandle: LongInt; AExpression: PChar; AVector: PVector; ASize: LongInt): LongInt; stdcall;
+function RGetVector(AHandle: LongInt; AExpression: PWideChar; AVector: PVector; ASize: LongInt): LongInt; stdcall;
 begin
   if isValid(AHandle) then
-    Result := TRConsole(AHandle).GetVector(AExpression, AVector, ASize)
+    Result := TRConsole(AHandle).GetVector(AnsiString(AExpression), AVector, ASize)
   else
     Result := 0;
 end;
 
 // call print() and show the output on debuglevel 0
-procedure RPrint(AHandle: LongInt; AExpression: PChar); stdcall;
+procedure RPrint(AHandle: LongInt; AExpression: PWideChar); stdcall;
 begin
   if isValid(AHandle) then
-    TRConsole(AHandle).Print(AExpression);
+    TRConsole(AHandle).Print(AnsiString(AExpression));
 end;
 
 exports

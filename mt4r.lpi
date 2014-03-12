@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -25,7 +25,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="3"/>
-      <BuildNr Value="27"/>
+      <BuildNr Value="31"/>
       <StringTable CompanyName="Bernd Kreuss" FileDescription="Interface library for using R with MQL4" LegalCopyright="Bernd Kreuss" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -52,7 +52,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <CursorPos X="67" Y="1"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
@@ -68,15 +68,15 @@
         <UnitName Value="profs_TRConsole"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="717"/>
-        <CursorPos X="35" Y="751"/>
+        <TopLine Value="4"/>
+        <CursorPos X="22" Y="1"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <WindowIndex Value="1"/>
-          <TopLine Value="1"/>
-          <CursorPos X="22" Y="1"/>
+          <WindowIndex Value="0"/>
+          <TopLine Value="108"/>
+          <CursorPos X="42" Y="120"/>
         </ExtraEditor1>
-        <UsageCount Value="84"/>
+        <UsageCount Value="85"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -86,12 +86,12 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="36" Y="3"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="85"/>
       </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
       <Filename Value="mt4R.dll"/>
@@ -107,15 +107,16 @@
     </Parsing>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
-      <SmallerCode Value="True"/>
       <Optimizations>
+        <OptimizationLevel Value="3"/>
         <VariablesInRegisters Value="True"/>
         <UncertainOptimizations Value="True"/>
-        <OptimizationLevel Value="3"/>
       </Optimizations>
+      <SmallerCode Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
         <UseLineInfoUnit Value="False"/>
         <StripSymbols Value="True"/>
       </Debugging>
@@ -148,4 +149,5 @@
       </Item3>
     </Exceptions>
   </Debugging>
+  <EditorMacros Count="0"/>
 </CONFIG>
