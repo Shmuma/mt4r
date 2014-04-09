@@ -283,7 +283,7 @@ int RInit(string commandline, int debuglevel){
    int dll_minor;
    string error;
    dll_version = RGetDllVersion();
-   if (dll_version == MT4R_VERSION_MAJOR << 16 + MT4R_VERSION_MINOR){
+   if (dll_version == ((MT4R_VERSION_MAJOR << 16) + MT4R_VERSION_MINOR)){
       return(RInit_(commandline, debuglevel));
    }else{
       dll_major = dll_version >> 16;
@@ -327,16 +327,16 @@ void Rd(string var, double d){
    RAssignDouble(hR, var, d);
 }
 
-void Rv(string var, double v[]){
+void Rv(string var, double& v[]){
    RAssignVector(hR, var, v, ArraySize(v));
 }
 
-void Rf(string name, string factor[]){
+void Rf(string name, string& factor[]){
    RAssignStringVector(hR, name, factor, ArraySize(factor));
    Rx(name + " <- as.factor(" + name + ")");
 }
 
-void Rm(string var, double matrix[], int rows, int cols){
+void Rm(string var, double& matrix[][], int rows, int cols){
    RAssignMatrix(hR, var, matrix, rows, cols);
 }
 
