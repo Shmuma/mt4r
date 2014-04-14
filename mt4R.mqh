@@ -219,7 +219,7 @@
    * only use RRowBindVector() to further grow it slowly on the arrival of single new 
    * data vectors instead of always sending a new copy of the entire matrix.
    */
-   void RAssignMatrix(int rhandle, string variable, double &matrix[][], int rows, int cols);
+   void RAssignMatrix(int rhandle, string variable, double &matrix[][1], int rows, int cols);
    
    /** 
    * append a row to a matrix or dataframe. This will exexute 
@@ -289,8 +289,8 @@ int RInit(string commandline, int debuglevel){
       dll_major = dll_version >> 16;
       dll_minor = dll_version & 0xffff;
       error = "Version mismatch mt4R.dll: "
-            + "expected version " + MT4R_VERSION_MAJOR + "." + MT4R_VERSION_MINOR
-            + "  -  found dll version " + dll_major + "." + dll_minor;
+            + "expected version " + IntegerToString(MT4R_VERSION_MAJOR) + "." + IntegerToString(MT4R_VERSION_MINOR)
+            + "  -  found dll version " + IntegerToString(dll_major) + "." + IntegerToString(dll_minor);
       Print(error);
       return(0);
    }
@@ -336,7 +336,7 @@ void Rf(string name, string& factor[]){
    Rx(name + " <- as.factor(" + name + ")");
 }
 
-void Rm(string var, double& matrix[][], int rows, int cols){
+void Rm(string var, double& matrix[][1], int rows, int cols){
    RAssignMatrix(hR, var, matrix, rows, cols);
 }
 
